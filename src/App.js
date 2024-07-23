@@ -9,7 +9,7 @@ function App() {
       "https://backend-test-psi-hazel.vercel.app/token"
     );
     const data = await response.json();
-    setToken(data.message);
+    setToken(data.device);
     console.log(data);
   };
 
