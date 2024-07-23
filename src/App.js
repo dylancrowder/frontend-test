@@ -10,6 +10,7 @@ function App() {
     );
     const data = await response.json();
     setToken(data.token);
+    console.log(data);
   };
 
   useEffect(() => {
