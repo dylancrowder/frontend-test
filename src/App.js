@@ -5,12 +5,26 @@ function App() {
   const [token, setToken] = useState("");
 
   const fetching = async () => {
-    const response = await fetch(
-      "https://backend-test-psi-hazel.vercel.app/token"
-    );
-    const data = await response.json();
-    setToken(data.device);
-    console.log(data);
+    try {
+      const response = await fetch(
+        "https://backend-test-psi-hazel.vercel.app/token",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setToken(data.device);
+      console.log(data);
+    } catch (error) {
+      console.error("Error fetching token:", error);
+    }
   };
 
   useEffect(() => {
