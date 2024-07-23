@@ -28,6 +28,7 @@ const App = () => {
         "https://backend-test-psi-hazel.vercel.app/protected-route",
         {
           headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
       console.log(response.data);
