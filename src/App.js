@@ -1,42 +1,38 @@
-import { useEffect, useState } from "react";
-import "./App.css";
+import React, { useEffect } from "react";
+import axios from "axios";
 
-function App() {
-  const [token, setToken] = useState("");
+const App = () => {
+  useEffect(() => {
+    const fetchToken = async () => {
+      // Realiza una petición para que el backend setee la cookie
+      await axios.get("http://your-backend-domain.com", {
+        withCredentials: true,
+      });
+    };
 
-  const fetching = async () => {
+    fetchToken();
+  }, []);
+
+  const accessProtectedRoute = async () => {
     try {
-      const response = await fetch(
-        "https://backend-test-psi-hazel.vercel.app/token",
+      const response = await axios.get(
+        "https://backend-test-psi-hazel.vercel.app/protected-route",
         {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          withCredentials: true,
         }
       );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      setToken(data.device);
-      console.log(data);
+      console.log(response.data);
     } catch (error) {
-      console.error("Error fetching token:", error);
+      console.error("Error accessing protected route", error);
     }
   };
 
-  useEffect(() => {
-    fetching();
-  }, []);
-
   return (
-    <div className="App">
-      <h1>hola</h1>
-      <h3>{token}</h3>
+    <div>
+      <h1>Aplicación</h1>
+      <button onClick={accessProtectedRoute}>Acceder a ruta protegida</button>
     </div>
   );
-}
+};
 
 export default App;
