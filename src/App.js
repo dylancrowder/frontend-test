@@ -4,10 +4,18 @@ import axios from "axios";
 const App = () => {
   useEffect(() => {
     const fetchToken = async () => {
-      // Realiza una petición para que el backend setee la cookie
-      await axios.get("https://backend-test-psi-hazel.vercel.app", {
-        withCredentials: true,
-      });
+      try {
+        // Realiza una petición para obtener el token y guardarlo en localStorage
+        const response = await axios.get(
+          "https://backend-test-psi-hazel.vercel.app",
+          {
+            withCredentials: true,
+          }
+        );
+        localStorage.setItem("token", response.data.token);
+      } catch (error) {
+        console.error("Error fetching token", error);
+      }
     };
 
     fetchToken();
@@ -15,10 +23,11 @@ const App = () => {
 
   const accessProtectedRoute = async () => {
     try {
+      const token = localStorage.getItem("token");
       const response = await axios.get(
         "https://backend-test-psi-hazel.vercel.app/protected-route",
         {
-          withCredentials: true,
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       console.log(response.data);
