@@ -5,7 +5,7 @@ const App = () => {
   useEffect(() => {
     const fetchToken = async () => {
       // Realiza una petición para que el backend setee la cookie
-      await axios.get("http://your-backend-domain.com", {
+      await axios.get("https://backend-test-psi-hazel.vercel.app", {
         withCredentials: true,
       });
     };
