@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const App = () => {
+  const [tkn, setTkn] = useState("");
   useEffect(() => {
     const fetchToken = async () => {
       try {
@@ -24,6 +25,7 @@ const App = () => {
   const accessProtectedRoute = async () => {
     try {
       const token = localStorage.getItem("token");
+      setTkn(token);
       const response = await axios.get(
         "https://backend-test-psi-hazel.vercel.app/protected-route",
         {
