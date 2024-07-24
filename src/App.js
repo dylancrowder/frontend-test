@@ -43,6 +43,7 @@ const App = () => {
     <div>
       <h1>Aplicación</h1>
       <button onClick={accessProtectedRoute}>Acceder a ruta protegida</button>
+      <h1>{tkn}</h1>
     </div>
   );
 };
